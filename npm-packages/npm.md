@@ -239,13 +239,11 @@ A: `Browserslist` is a tool that allows specifying which browsers should be supp
 
 
 # publishing a package in npm registry
-                                      1. create a emty folder
-                                       
-                                      2. run npm init with a uniq name
-                                      3. create index.js
-                                     4.  write code 
-
-                                     5.  npm login -userName, password Email
-                                     6.  npm publish
+                                      1.  create a emty folder
+                                      2.  run npm init with a uniq name
+                                      3.  create index.js
+                                      4.  write code 
+                                      5.  npm login -userName, password Email
+                                      6.  npm publish
 # to update your published packages:
-                                     npm version major or npm minor or patch 
+                                          npm version major or npm minor or patch 
