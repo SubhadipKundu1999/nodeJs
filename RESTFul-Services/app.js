@@ -55,7 +55,7 @@ const courses =[
     }
 ]
 
-// handling post requests
+//////////////////////////////////////////// handling post requests
 
 app.post("/api/courses/",(req, res)=>{
     // custom input validation
@@ -75,20 +75,55 @@ console.log(result);
 
 
 if(result.error){
-    res.send(result.error);
+  return res.send(result.error);
 }
-    else{
-
-
     const course={
         id:courses.length+1,
         name:req.body.name,
     }
     courses.push(course);
     res.send(course);
-}
+
 
 })
+
+
+//////////////////////////////////////////// handling put requests
+
+
+app.put("/api/courses/:id", (req, res)=>{
+    // look up the course
+    // if not existing return 404
+  const course = courses.find(c=> c.id===parseInt(req.params.id));
+  if(!courses) res.status(404).send('the courses withgiven id was not available');
+
+
+    // validate 
+    // if not validate return 400- bad request
+
+     // input validation using Joi npm package
+const schema = Joi.object({
+    name: Joi.string().min(3).required()
+})
+
+
+const result =schema.validate({name: req.body.name});
+console.log(result);
+
+
+if(result.error){
+   return  res.send(result.error);
+}
+
+
+// update course
+// return the updated course
+    res.send(course);
+
+    
+})
+
+
 
 
 
