@@ -1,0 +1,1 @@
+this a static file insifde public dir.

@@ -25,3 +25,17 @@ app.use(function(req, res, next){
     console.log('Authanticating....');
     next();
 })
+
+# expreeJs builtin middleware
+
+
+express.json()   -->  This is a built-in middleware function in Express. It parses incoming requests with JSON payloads and is based on body-parser.
+
+express.urlencoded({extended:true}) ==> it parse incoming request and understand key-value pair and populate req.body object
+ extend: true-> with this we can pass complex object and arrqy to url to 
+
+
+ express.static('public)  -->   This is a built-in middleware function in Express. It serves static files inside public directry 
+  let say we have one readme.text file inside public dir.
+  in browser we can access it from the root file here app.js like:
+  localhost:3000/readme.txt

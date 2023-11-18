@@ -6,6 +6,8 @@ const auth = require('./auth-middleware');
 
 // middleware
 app.use(express.json()); //-> 
+app.use(express.urlencoded({extended:true}));
+app.use(express.static('public'));
 
 // custom middleware
 app.use(log);
