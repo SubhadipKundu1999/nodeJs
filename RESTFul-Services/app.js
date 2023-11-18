@@ -5,6 +5,16 @@ const Joi = require("joi");
 // middleware
 app.use(express.json());
 
+// custom middleware
+app.use(function(req, res, next){
+    console.log('logging....');
+    next();
+})
+app.use(function(req, res, next){
+    console.log('Authanticating....');
+    next();
+})
+
 const port = process.env.PORT ||3000;
 
 //GET REQUESTS
@@ -98,14 +108,12 @@ app.put("/api/courses/:id", (req, res)=>{
   if(!courses) res.status(404).send('the courses withgiven id was not available');
 
 
-    // validate 
+     // validate 
     // if not validate return 400- bad request
-
-     // input validation using Joi npm package
+   // input validation using Joi npm package   
 const schema = Joi.object({
     name: Joi.string().min(3).required()
 })
-
 
 const result =schema.validate({name: req.body.name});
 console.log(result);
@@ -114,13 +122,9 @@ console.log(result);
 if(result.error){
    return  res.send(result.error);
 }
-
-
 // update course
 // return the updated course
     res.send(course);
-
-    
 })
 
 
