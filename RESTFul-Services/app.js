@@ -1,28 +1,22 @@
 const express = require('express');
 const app = express();
 const Joi = require("joi");
+const log = require('./logger-middleware');
+const auth = require('./auth-middleware');
 
 // middleware
-app.use(express.json());
+app.use(express.json()); //-> 
 
 // custom middleware
-app.use(function(req, res, next){
-    console.log('logging....');
-    next();
-})
-app.use(function(req, res, next){
-    console.log('Authanticating....');
-    next();
-})
+app.use(log);
+app.use(auth)
 
 const port = process.env.PORT ||3000;
 
 //GET REQUESTS
 
 app.get('/',(req, res)=>{
-
    res.send('hello world'); 
-
 });
 
 app.get('/api/courses',(req, res)=>{
