@@ -15,6 +15,28 @@ app.use(auth)
 
 const port = process.env.PORT ||3000;
 
+
+//how to write w=enviroment basis code
+
+/* 
+in more  complex and industry enterprise like application
+ we have to know in what environments code is running 
+is it production enviroment or development environment 
+ and set certain feature based on the environment 
+*/
+console.log(process.env.NODE_ENV); //undefined if not set
+console.log("app:", app.get('env'));  // by defalut it will show development
+
+// let use morgan() middleware to print or log http requests in development environment
+const morgan = require("morgan");
+if(app.get('env')==='development'){
+    app.use(morgan('tiny')); //--->GET / 304 - - 3.671 ms 
+    console.log('morgan enabled');
+}
+
+
+
+
 //GET REQUESTS
 
 app.get('/',(req, res)=>{
