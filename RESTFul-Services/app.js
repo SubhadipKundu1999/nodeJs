@@ -4,6 +4,8 @@ const Joi = require("joi");
 const log = require('./logger-middleware');
 const auth = require('./auth-middleware');
 
+const config = require('config');
+
 // middleware
 app.use(express.json()); //-> 
 app.use(express.urlencoded({extended:true}));
@@ -15,6 +17,15 @@ app.use(auth)
 
 const port = process.env.PORT ||3000;
 
+
+//config
+
+console.log('Application name: '+ config.get('name'));
+
+console.log('Mail Server: '+ config.get('mail.host'));
+        ///now check env  $env:NODE_ENV='production' or $env:NODE_ENV='production'
+
+console.log('Mail pass: '+ config.get('mail.password'));// before execute set  $env:app_password="1234"
 
 //how to write w=enviroment basis code
 
