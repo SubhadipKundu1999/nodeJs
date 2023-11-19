@@ -50,8 +50,13 @@ if(app.get('env')==='development'){
 
 //GET REQUESTS
 
+
+//send static data
 app.get('/',(req, res)=>{
-   res.send('hello world'); 
+//    res.send('<h1>hello world</h1>'); 
+res.write("<h1>home page");
+// res.json([{id:1, name:"subha"}])
+res.send("stopped");
 });
 
 app.get('/api/courses',(req, res)=>{
