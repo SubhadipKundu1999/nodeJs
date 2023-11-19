@@ -1,20 +1,27 @@
 const express = require('express');
 const path = require('path');
 const app = express();
+const hbs = require('hbs')
 
 
 // define static path:
 const staticPath = path.join(__dirname,"../public");
+
 //builtin middleware
+// app.use(express.static(staticPath))
 
-app.use(express.static(staticPath))
 
+
+
+//set up view engine
+app.set('view engine', 'hbs')
+
+// dynamic content
 app.get("/", (req, res)=>{
-    res.send("home page")
+    res.render('index.hbs')
 })
-
 app.get("/about", (req, res)=>{
-    res.send("about page")
+    res.render("about")
 })
 
 
