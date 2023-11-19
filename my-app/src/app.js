@@ -36,6 +36,22 @@ app.get("/about", (req, res)=>{
     res.render("about")
 })
 
+// to show 404 error page
+
+//  to show specific error in about route 
+app.get("/about/*", (req, res)=>{
+    res.render("404",{
+        errorMessage : "OOPs this about  page not found"
+    })
+})
+
+//  to show any error page
+app.get("*", (req, res)=>{
+    res.render("404",{
+        errorMessage : "OOPs page not found"
+    })
+})
+
 
 app.listen(3000,()=>{
     console.log("listening from port 3000");
