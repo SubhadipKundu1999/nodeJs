@@ -11,10 +11,16 @@ const staticPath = path.join(__dirname,"../public");
 // app.use(express.static(staticPath))
 
 
-
-
 //set up view engine
 app.set('view engine', 'hbs')
+
+//customize views diractory
+// to use template engine we have a views dir. in root dir and html file should be there
+// but if we want we can keep views dir anywhere we can want,and we can chnge dir name from views to any thing so for that we have to set views:
+
+const templatePath = path.join(__dirname,"../templates/views");
+app.set('views', templatePath);
+
 
 // dynamic content
 app.get("/", (req, res)=>{
