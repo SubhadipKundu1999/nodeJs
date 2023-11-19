@@ -22,6 +22,12 @@ const templatePath = path.join(__dirname,"../templates/views");
 app.set('views', templatePath);
 
 
+//to use partials
+const partialsPath = path.join(__dirname, ("../templates/partials"));
+hbs.registerPartials(partialsPath);
+// run with nodemon src/app.js -ejs, hbs to rerender nodemon when hbs file change
+
+
 // dynamic content
 app.get("/", (req, res)=>{
     res.render('index.hbs')
