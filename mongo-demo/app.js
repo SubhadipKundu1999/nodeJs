@@ -85,11 +85,23 @@ example:
 
   */
 
+
+// Regular Expression
+ /* ### find courses which have author name starts with "Mosh" or "Subha".
+
+ ---> Course.find({author:{$in:[/^Mosh/ , /^Subha/ ]} })
+
+ ### find courses which have author name end with "Mosh" .
+  ---> Course.find({author: /ubha$/i})
+
+ ### find courses which have author name containg the string "bh"
+ */
+// --->  Course.find({author:/.*bh.*/ }) 
+
+     
     const course = await Course
-                  .find({author:'Subha', isPublished:false})
-                  .limit(10)
-                  .sort({name:1})
-                  .select({_id:0, name:1, tags:1});
+                  .find({author:/.*bh.*/i  }) //i for to make case in sensitive 
+
     console.log(course);              
 }
 
