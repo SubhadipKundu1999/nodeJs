@@ -20,6 +20,7 @@ const mongoose = require("mongoose");
       type:String,
       required:[ true, "Author name is required"]
     },
+    
     tags:{
       type:Array,
       // custom validator
@@ -52,10 +53,10 @@ const Course = mongoose.model('Course', courseSchema);
 
  async function createCourse(){
    const course = new Course({
-    name:"csS",
-    tags:['frontend', 'design'],
+    // name:"csS",
+    // tags:['frontend', 'design'],
     author:'bristi Kundu',
-    category :'web',
+    // category :'web',
     isPublished:false,
     price:120
    });
@@ -65,7 +66,11 @@ const Course = mongoose.model('Course', courseSchema);
     console.log(result);
    }
    catch(err){
-    console.log(err.message);
+    //handling validation errors
+    for(field in err.errors){
+      console.log(field) // category, naem, tags
+      console.log(err.errors[field].properties.message)
+    }
    }
  } 
 
