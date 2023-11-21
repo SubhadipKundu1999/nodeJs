@@ -23,18 +23,12 @@ const Course = mongoose.model('Course', courseSchema);
 
 //update course
 
-async function updateCourse(id){
+async function DeleteCourse(id){
 
-  const result = await Course.updateOne({author:"Mosh"},{
- $set:{
-    author:'Subhadip',
-    isPublished:false
- }
-
-  })
+  const result = await Course.deleteOne({author:'Subhadip'});
   console.log(result)
 }
-const id = "655c9b0423979af8a98f52f"
+const id = '655c9b0423979af8a98f52f'
 
-updateCourse(id);
+DeleteCourse(id);
 
