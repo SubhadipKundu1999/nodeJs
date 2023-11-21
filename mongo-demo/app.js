@@ -1,7 +1,6 @@
 const mongoose = require("mongoose");
 
 //connection
-
  mongoose.connect("mongodb://0.0.0.0:27017/playground")
  .then(()=>console.log("connected to mongodb"))
  .catch((error)=>console.log("could not connect to mongodb", error))
@@ -9,7 +8,6 @@ const mongoose = require("mongoose");
 
 
  //schema
-
  const courseSchema =new mongoose.Schema({
     name:String,
     author:String,
@@ -38,10 +36,6 @@ async function createCourse(){
     const result = await course.save();
     console.log(result);
 }
-
-
-// get course query function
-async function getCourse(){
 
 // comparision Query operator:
 
@@ -87,22 +81,37 @@ example:
 
 
 // Regular Expression
- /* ### find courses which have author name starts with "Mosh" or "Subha".
+ /*
+### find courses which have author name starts with "Mosh" or "Subha".
 
- ---> Course.find({author:{$in:[/^Mosh/ , /^Subha/ ]} })
+     ---> Course.find({author:{$in:[/^Mosh/ , /^Subha/ ]} })
 
  ### find courses which have author name end with "Mosh" .
-  ---> Course.find({author: /ubha$/i})
+
+      ---> Course.find({author: /ubha$/i})
 
  ### find courses which have author name containg the string "bh"
  */
-// --->  Course.find({author:/.*bh.*/ }) 
+  // --->  Course.find({author:/.*bh.*/ }) 
+    
 
-     
-    const course = await Course
-                  .find({author:/.*bh.*/i  }) //i for to make case in sensitive 
+//count total document
+    // const course = await Course.find().count()   
 
-    console.log(course);              
+
+
+ // get course query function
+async function getCourse(){
+// pagination
+const number_of_documents_each_page =1;
+const current_page_number =0
+
+const course = await Course.find()
+.skip(current_page_number * number_of_documents_each_page)
+.limit(number_of_documents_each_page)
+
+console.log(course);     
+
 }
 
 getCourse();
