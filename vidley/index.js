@@ -1,10 +1,16 @@
 // 
 const express = require("express");
+const mongoose = require("mongoose");
 
 //
 const genres = require("./routes/genres");
 
 const app = express();
+
+
+mongoose.connect('mongodb://0.0.0.0:27017/vidley')
+.then(()=> console.log('Connected to MongoDB...'))
+.catch(error => console.log('Could not connect to MongoDB'));
 
 
 // middlewares
