@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 
 //
 const genres = require("./routes/genres");
+const customers = require("./routes/customers");
 
 const app = express();
 
@@ -21,8 +22,8 @@ app.use(express.urlencoded({ extended: true }))
 const port = process.env.PORT || 3000;
 
 //routers
-
 app.use("/api/genres/", genres);
+app.use("/api/customers/", customers);
 
 // listening
 app.listen(port, () => {
