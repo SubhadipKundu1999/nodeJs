@@ -15,6 +15,7 @@ const mongoose = require("mongoose");
       required:[true, "Name field is required"],
       minLength:3,
       maxLength:100
+    
     },
     author:{
       type:String,
@@ -37,13 +38,15 @@ const mongoose = require("mongoose");
     category:{
       type:String,
       required:[true, "category field is required with one of the value -> web mobile, network "],
-      enum:['web', 'mobile', 'network'] 
-    },
+      enum:['web', 'mobile', 'network'] ,    },
     date:{type:Date, default:Date.now},
     isPublished:Boolean,
+    
     price:{
       type:Number,
-      required: function(){ return this.isPublished} //price is required when course is published
+      required: function(){ return this.isPublished}, //price is required when course is published,
+      get:v=>Math.round(v),
+      set: v=> Math.round(v)
     }
  })
 
@@ -53,12 +56,12 @@ const Course = mongoose.model('Course', courseSchema);
 
  async function createCourse(){
    const course = new Course({
-    // name:"csS",
-    // tags:['frontend', 'design'],
+    name:"csS",
+    tags:['frontend', 'design'],
     author:'bristi Kundu',
-    // category :'web',
+    category :'web',
     isPublished:false,
-    price:120
+    price:120.6
    });
 
    try{
