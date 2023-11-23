@@ -44,8 +44,10 @@ async function createCourse(name, author){
 async function listCourse(){
     const course = await Course
     .find()
-    .select('name');
-
+    .select('name author')// to show name along with author
+//  .populate('author')     // to show complete author 
+    .populate('author', 'name -_id')// to show  author with only name field and remove _id
+  //.populate('category')        // now if we have another field named 'category' which is refernce to another 'category' collection we can show it with another population method along with above 
     console.log(course);
 
 }
