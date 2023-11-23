@@ -30,7 +30,7 @@ const Customer = mongoose.model('Customer',  new mongoose.Schema({
 
 // function to validate genre
 
-function validateCustomer(data) {
+function validateCustomer(customer) {
     const schema = Joi.object({
         name: Joi.string()
             .min(3)
@@ -44,7 +44,7 @@ function validateCustomer(data) {
 
         isGold: Joi.boolean()     
     })
-    const validation = schema.validate({ name: data.name, phone:data.phone, isGold:data.isGold });
+    const validation = schema.validate({ name: customer.name, phone:customer.phone, isGold:customer.isGold });
     return validation;
 }
 
