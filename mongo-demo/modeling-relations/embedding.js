@@ -13,13 +13,13 @@ const Author = mongoose.model('Author',authorSchema);
 
 const Course = mongoose.model( 'Course', new mongoose.Schema({
     name: String,
-    author: authorSchema  
+    authors: [authorSchema]  
 }))
 
-async function createCourse(name,author){
+async function createCourse(name,authors){
     const course = new Course({
         name, 
-        author
+        authors: authors
     });
 
     const result = await course.save();
@@ -32,23 +32,31 @@ async function listCourse(){
 }
 
 //update author is easu deu to embedding author document inside course document
-async function updateAuthor(coursesId){
- const course = await Course.findByIdAndUpdate({_id: coursesId}, {
-    $set:{
-        author:{
-            name:'subhadip'
-        }
-    }
+async function updateAuthor(courseId, authorId){
 
- })
- console.log(course)
+    const course = await Course.findById(courseId);
+console.log(course)
+    const author = course.authors.id(authorId);
+    author.deleteOne();
+    course.save();
+
 }
 
 
 
-// createCourse('node js', new Author({
-//     name:'Mosh'
-// }));
+// createCourse('node js',[
+//     new Author({
+//         name:'Mosh'
+//     }),
+//     new Author({
+//         name:'Subha'
+//     }),
+//     new Author({
+//         name:'Atanu'
+//     })
+// ]);
 
-listCourse();
-// updateAuthor('655f39c5976ee00107fbb129');
+// listCourse();
+
+
+updateAuthor('655f3f3371be7b89b7220ef8', '655f3f3371be7b89b7220ef5');
