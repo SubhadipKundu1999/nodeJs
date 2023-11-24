@@ -14,8 +14,6 @@ router.post("/", async (req, res) => {
     const oldUser = await User.findOne({email:req.body.email});
     if(oldUser)  return res.status(400).send("this email id is already registered");
 
-    
-console.log(  _.pick(req.body, ['name','email','password']));
     let newUser =  new User(
       _.pick(req.body, ['name','email','password']),
     );

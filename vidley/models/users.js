@@ -1,5 +1,7 @@
 const mongoose = require("mongoose")
 const Joi = require("joi");
+const passwordComplexity = require("joi-password-complexity");
+
 const User = mongoose.model('User', new mongoose.Schema({
     name: {
         type: String,
@@ -26,12 +28,21 @@ function validateUser(user) {
 
         name: Joi.string().min(3).max(50).required(),
         email: Joi.string().required() .email(),
-        password: Joi .string().min(6).pattern(new RegExp('^[a-zA-Z0-9]{3,30}$')).required()
-        
+        password:  passwordComplexity({
+            min:6,
+            max:30,
+            lowerCase: 1,
+            upperCase: 1,
+            numeric: 1,
+            symbol: 1,
+            requirementCount:6,
+          })
+      
     })
 
-const validation = schema.validate({name: user.name, email: user.email, password: user.password})
-return validation;
+const validation = schema.validate({name: user.name, email: user.email, password: user.password}) 
+
+return validation
 
 }
 
