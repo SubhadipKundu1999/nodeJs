@@ -19,7 +19,7 @@ router.post("/", async (req, res) => {
     let newUser =  new User(
       _.pick(req.body, ['name','email','password']),
     );
-    
+
     // hashed password
     var salt =  await bcrypt.genSalt(10);
     newUser.password= await bcrypt.hash(newUser.password, salt);
@@ -31,30 +31,3 @@ router.post("/", async (req, res) => {
 
 
 module.exports= router;
-
-/* Why Lodash?
-Lodash makes JavaScript easier by taking the hassle out of working with arrays, numbers, objects, strings, etc. Lodash’s modular methods are great for:
-
-Iterating arrays, objects, & strings
-Manipulating & testing values
-Creating composite functions
-
-
-
-# _.pick(object, [paths])
-
-Creates an object composed of the picked object properties.
-
-Arguments
-object (Object): The source object.
-[paths] (...(string|string[])): The property paths to pick.
-Returns
-(Object): Returns the new object.
-
-Example
-var object = { 'a': 1, 'b': '2', 'c': 3 };
- 
-_.pick(object, ['a', 'c']);
-// => { 'a': 1, 'c': 3 }
-*/
-
