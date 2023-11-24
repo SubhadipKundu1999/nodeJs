@@ -1,11 +1,13 @@
 const express = require("express");
 const router = express.Router();
 var _ = require('lodash'); //loadsh
+const bcrypt = require('bcryptjs');
+
 const { User, validateUser } = require("../models/users");
 
 
-// register
 
+// register
 router.post("/", async (req, res) => {
 
     const { error } = validateUser(req.body);
@@ -17,8 +19,12 @@ router.post("/", async (req, res) => {
     let newUser =  new User(
       _.pick(req.body, ['name','email','password']),
     );
+    
+    // hashed password
+    var salt =  await bcrypt.genSalt(10);
+    newUser.password= await bcrypt.hash(newUser.password, salt);
 
-    newUser = await newUser.save();
+    await newUser.save();
 
     res.json(  _.pick(req.body,['name','email']));
 })
