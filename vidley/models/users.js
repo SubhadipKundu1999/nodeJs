@@ -18,7 +18,8 @@ const userSchema =  new mongoose.Schema({
         type: String,
         minLength: 6
 
-    }
+    },
+    isAdmin: Boolean // add a new field 
 })
 
 
@@ -26,7 +27,7 @@ const userSchema =  new mongoose.Schema({
 
 userSchema.methods.generateAuthToken = function(){
     const token = jwt.sign(
-        { _id: this._id },
+        { _id: this._id ,isAdmin: this.isAdmin}, // give one more field to payload of token
         process.env.JWT_SECRET_CODE,
         { expiresIn: '1h' }
         );
