@@ -2,3 +2,4 @@ RESTFul-Services/node_modules/
 my-app/node_modules/
 vidley/node_modules/
 mongo-demo/node_modules/
+vidley/.env

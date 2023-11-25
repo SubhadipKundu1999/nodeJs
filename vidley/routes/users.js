@@ -23,10 +23,13 @@ router.post("/", async (req, res) => {
     // hashed password
     var salt =  await bcrypt.genSalt(10);
     newUser.password= await bcrypt.hash(newUser.password, salt);
-
+   
     await newUser.save();
 
-    res.json(  _.pick(req.body,['name','email']));
+  // token
+  const token= newUser.generateAuthToken();
+
+    res.header('x-auth-token', token).json(  _.pick(req.body,['name','email']));
 })
 
 

@@ -1,6 +1,7 @@
 // 
 const express = require("express");
 const mongoose = require("mongoose");
+const dotenv = require('dotenv')
 
 //
 const genres = require("./routes/genres");
@@ -11,7 +12,7 @@ const users = require("./routes/users");
 const auth = require("./routes/auth");
 
 const app = express();
-
+dotenv.config();
 
 mongoose.connect('mongodb://0.0.0.0:27017/vidley')
 .then(()=> console.log('Connected to MongoDB...'))
@@ -21,6 +22,7 @@ mongoose.connect('mongodb://0.0.0.0:27017/vidley')
 // middlewares
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }))
+
 
 // env variables
 const port = process.env.PORT || 3000;
