@@ -29,6 +29,14 @@ router.post("/", async (req, res) => {
 
 })
 
+//logging out user:
+
+// logging out functionality should be on client side, 
+// many developer use to save token in database ande log out by requesting server to delete this token from database.
+// but  storeing token in databse lead to make security issue , if any hacker any how got access the database, the can use token to access detail without password
+
+//  so store token to client side and make feature of log out by deleting those token from browser storage. is good option
+
 
 
 function validateAuth(user) {
