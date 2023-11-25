@@ -35,7 +35,7 @@ router.put("/:id",auth,  async (req, res) => {
 })
 
 
-router.delete("/:id", [auth, admin], async (req, res) => {  // add one more middleware to check user is admin
+router.delete("/:id", [auth, admin], async (req, res) => {  
 
     const genre = await Genre.findByIdAndDelete(req.params.id)
     if(!genre) return res.status(400).send('The genre with the given ID is not found')
