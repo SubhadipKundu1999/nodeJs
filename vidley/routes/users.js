@@ -4,10 +4,13 @@ var _ = require('lodash'); //loadsh
 const bcrypt = require('bcryptjs');
 
 const { User, validateUser } = require("../models/users");
+const auth = require("../middleware/auth");
 
-
-
-// register
+router.get('/me', auth, async (req, res)=>{
+  const user = await User.findById(req.user._id).select('-password')
+  if(!user) return res.status(400).send("invalid user");
+res.status(200).send(user);
+})
 router.post("/", async (req, res) => {
 
     const { error } = validateUser(req.body);
