@@ -5,9 +5,15 @@ const { validateMovie, Movie} = require("../models/movies");
 const { Genre} = require("../models/genres")
 
 
-router.get('/', async (req, res)=>{
-const movies =  await Movie.find().sort({title:1});
-res.send(movies);
+router.get('/', async (req, res, next)=>{
+     try{
+        const movies =  await Movie.find().sort({title:1});
+        res.send(movies);
+     }
+     catch(ex){
+       next();
+     }
+
 });
 
 router.post ('/', async (req, res)=>{

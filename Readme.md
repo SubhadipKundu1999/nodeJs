@@ -1,17 +1,19 @@
-# Authentication and Authorization
+#### Authentication and Authorization
 
-- Authentication :
+# Authentication :
   is the process of determining if the user is who he/she claims to 
 be. It involves validating their email/password.
-- Authorization :
+# Authorization :
   is the process of determining if the user has permission to perform 
 a given operation.
 - To hash passwords, use bcrypt:
 # Hashing passwords
-const salt = await bcrypt.genSalt(10);
+```const salt = await bcrypt.genSalt(10);
 const hashed = await bcrypt.hash(‘1234’, salt);
-# Validating passwords
-const isValid = await bcrypt.compare(‘1234’, hashed);
+```
+ # Validating passwords
+```const isValid = await bcrypt.compare(‘1234’, hashed);
+```
 
 - A JSON Web Token (JWT) is a JSON object encoded as a long string. We use 
 them to identify users. It’s similar to a passport or driver’s license. It includes a 
@@ -21,18 +23,21 @@ tampered because doing so requires re-generating the digital signature.
 client. We store this token on the client and send it to the server every time we 
 need to call an API endpoint that is only accessible to authenticated users.
 - To generate JSON Web Tokens in an Express app use jsonwebtoken package. 
-// Generating a JWT 
-const jwt = require(‘jsonwebtoken’);
-const token = jwt.sign({ _id: user._id}, ‘privateKey’);
+
+# Generating a JWT 
+
+```const jwt = require(‘jsonwebtoken’);
+const token = jwt.sign({ _id: user._id}, ‘privateKey’);```
 - Never store private keys and other secrets in your codebase. Store them in 
 environment variables. Use the config package to read application settings 
 stored in environment variables. 
 
 - When appropriate, encapsulate logic in Mongoose models: 
-# Adding a method to a Mongoose model
-userSchema.methods.generateAuthToken = function() { 
+## Adding a method to a Mongoose model
+```userSchema.methods.generateAuthToken = function() { 
 } 
 const token = user.generateAuthToken();
+```
 - Implement authorization using a middleware function. Return a 401 error 
 (unauthorized) if the client doesn’t send a valid token. Return 403 (forbidden) if 
 the user provided a valid token but is not allowed to perform the given operation.
@@ -43,3 +48,62 @@ passports or drivers license in a room. Anyone who has access to that room can
 steal these passports. Store JWTs on the client. If you have a strong reason for 
 storing them on the server, make sure to encrypt them before storing them in a 
 database.
+
+
+
+#### Error Handling
+
+## use try and catch block
+ 
+ 
+- ```router.get('/', async (req, res, next)=>{
+     
+        const movies =  await Movie.find().sort({title:1});
+        res.send(movies);
+     
+});```
+
+- if you do not handle rejected promise , it will stop your server
+better to use try and catch block
+
+
+```   router.get('/', async (req, res, next)=>{
+
+     try{
+        const movies =  await Movie.find().sort({title:1});
+        res.send(movies);
+     }
+     catch(ex){
+       res.status(500).send('internal server error');
+     }
+
+});
+```
+## handle similar type error:
+ each routing error can be handled by building another middleware handler which will execute after main handler function and we can call next middleware inside catch block
+
+ //middleware
+
+ ```app.use(function(req, res, neext){
+    
+    //log the exception
+    res.status(500).send('internal server error');
+})```
+
+//handler
+```    try{
+        const movies =  await Movie.find().sort({title:1});
+        res.send(movies);
+     }
+     catch(ex){
+      next(); // call next middleware
+     }
+
+});
+```
+## remove  repitative try and catch block
+
+
+
+
+
