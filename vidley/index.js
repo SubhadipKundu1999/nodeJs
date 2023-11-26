@@ -1,4 +1,4 @@
- require("winston-mongodb");
+//  require("winston-mongodb");
 const winston = require("winston");
 const express = require("express");
 const mongoose = require("mongoose");
@@ -17,13 +17,27 @@ const error = require("./middleware/error");
 const app = express();
 dotenv.config();
 
+// // handle uncaught exception
+process.on('uncaughtException', (ex)=>{
+    winston.error(ex.message);
+})
+
+
+
+// throw new Error('uncaught exception'); // cause exit of server
+
+
+
 winston.add(new winston.transports.File({filename:'logfile.log'}))
 // save error to database
-winston.add(new winston.transports.MongoDB({db:'mongodb://0.0.0.0:27017/vidley'}));
+// winston.add(new winston.transports.MongoDB({db:'mongodb://0.0.0.0:27017/vidley'}));
 
 mongoose.connect('mongodb://0.0.0.0:27017/vidley')
 .then(()=> console.log('Connected to MongoDB...'))
 .catch(error => console.log('Could not connect to MongoDB'));
+
+
+
 
 
 // middlewares
@@ -41,6 +55,8 @@ app.use("/api/movies/", movies)
 app.use("/api/rentals/", rentals)
 app.use("/api/users/", users)
 app.use("/api/auth/", auth)
+
+
 
 // middleware to handle error
 app.use(error);
