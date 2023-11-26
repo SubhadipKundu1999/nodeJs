@@ -1,4 +1,5 @@
-// 
+ require("winston-mongodb");
+const winston = require("winston");
 const express = require("express");
 const mongoose = require("mongoose");
 const dotenv = require('dotenv')
@@ -12,8 +13,13 @@ const users = require("./routes/users");
 const auth = require("./routes/auth");
 const error = require("./middleware/error");
 
+
 const app = express();
 dotenv.config();
+
+winston.add(new winston.transports.File({filename:'logfile.log'}))
+// save error to database
+winston.add(new winston.transports.MongoDB({db:'mongodb://0.0.0.0:27017/vidley'}));
 
 mongoose.connect('mongodb://0.0.0.0:27017/vidley')
 .then(()=> console.log('Connected to MongoDB...'))

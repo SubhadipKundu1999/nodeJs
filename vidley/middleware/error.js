@@ -1,15 +1,8 @@
 const winston = require('winston');
 
+module.exports = function(req, res, next){
 
-const logger = winston.createLogger({
-    level: 'error',
-    format: winston.format.json(),
-    transports: [new winston.transports.Console()],
-  });
-
-module.exports = function(req, res, neext){
-
-   logger.error('something went wrong');
+   winston.error('error foud in server');
     
     //log the exception
     res.status(500).send('internal server error');

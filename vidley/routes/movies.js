@@ -9,7 +9,7 @@ const async = require("../middleware/async");
 
 router.get('/', async( async (req, res, next)=>{
     
-    // throw new Error('wrong');
+    throw new Error('wrong');
     const movies =  await Movie.find().sort({title:1});
     res.send(movies);
 } ));
