@@ -5,16 +5,27 @@ const { validateMovie, Movie} = require("../models/movies");
 const { Genre} = require("../models/genres")
 
 
-router.get('/', async (req, res, next)=>{
-     try{
-        const movies =  await Movie.find().sort({title:1});
-        res.send(movies);
-     }
-     catch(ex){
-       next();
-     }
+//
+ function asyncMiddleware(handler){
+    return async (req, res, next)=>{
+        
+    try{
+        await handler(req, res);
+      }
+      catch(ex){
+        next();
+      }
+ 
+    }
+}
 
-});
+// asyncMiddleware function return a handler function 
+
+router.get('/', asyncMiddleware(async (req, res, next)=>{
+
+    const movies =  await Movie.find().sort({title:1});
+    res.send(movies);
+} ));
 
 router.post ('/', async (req, res)=>{
 

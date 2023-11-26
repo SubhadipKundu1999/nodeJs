@@ -15,9 +15,9 @@ const error = require("./middleware/error");
 const app = express();
 dotenv.config();
 
-// mongoose.connect('mongodb://0.0.0.0:27017/vidley')
-// .then(()=> console.log('Connected to MongoDB...'))
-// .catch(error => console.log('Could not connect to MongoDB'));
+mongoose.connect('mongodb://0.0.0.0:27017/vidley')
+.then(()=> console.log('Connected to MongoDB...'))
+.catch(error => console.log('Could not connect to MongoDB'));
 
 
 // middlewares
