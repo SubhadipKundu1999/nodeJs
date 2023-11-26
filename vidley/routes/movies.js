@@ -2,32 +2,18 @@ const express = require("express");
 const router = express.Router();
 
 const { validateMovie, Movie} = require("../models/movies");
-const { Genre} = require("../models/genres")
+const { Genre} = require("../models/genres");
+const async = require("../middleware/async");
 
 
-//
- function asyncMiddleware(handler){
-    return async (req, res, next)=>{
-        
-    try{
-        await handler(req, res);
-      }
-      catch(ex){
-        next();
-      }
- 
-    }
-}
 
-// asyncMiddleware function return a handler function 
-
-router.get('/', asyncMiddleware(async (req, res, next)=>{
+router.get('/', async( async (req, res, next)=>{
 
     const movies =  await Movie.find().sort({title:1});
     res.send(movies);
 } ));
 
-router.post ('/', async (req, res)=>{
+router.post ('/', async(async (req, res)=>{
 
     const { error } = validateMovie(req.body);
     if (error) return res.status(400).send(error.details[0].message);
@@ -47,6 +33,6 @@ router.post ('/', async (req, res)=>{
 
     movie = await  movie.save() ;
      res.status(201).send(movie);
-})
+}))
 
 module.exports = router;
