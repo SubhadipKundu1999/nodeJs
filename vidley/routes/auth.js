@@ -11,7 +11,7 @@ const { User } = require("../models/users");
 
 // login
 router.post("/", async (req, res) => {
-
+console.log(req.body);
     const { error } = validateAuth(req.body);
     if (error) return res.status(400).send(error.details[0].message);
 

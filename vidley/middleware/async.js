@@ -5,6 +5,7 @@ module.exports= function asyncMiddleware(handler){
         await handler(req, res);
       }
       catch(ex){
+        console.log(ex);
         next();
       }
  
