@@ -425,3 +425,13 @@ it('should return a positive number if input is positive', ()=>{
     })    
 })
 ```
+
+
+## to continously Running Tests:
+modify:
+
+```"scripts": {
+    "test": "jest --watchAll"
+  }
+  ```
+ - now need not type "npm test" each time after code modify
