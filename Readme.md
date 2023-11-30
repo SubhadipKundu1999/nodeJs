@@ -118,7 +118,7 @@ better to use try and catch block
   in automated testing our source code consist two types of code, production code and test code
 
 ## Benifits:
-1. Test your frequently, in less time
+1. Test your code  frequently, in less time
 2. catch the bug before deploying
 3. Deploy with confidence
 4. Refactor your code with confidance:
@@ -134,7 +134,7 @@ better to use try and catch block
 # Unit Testing:
 - Defination:
 
-   unit testing is a process of testing individual units orc omponents of our application in isolation. 
+   unit testing is a process of testing individual units or components of our application in isolation. 
    an "unit" is smallest , testable part of the application, such as function, methods and class
 
 - Key Characteristics:
@@ -177,7 +177,7 @@ Do not give a lots of confidance
  3. Involves testing across different layers, such as the user interface, backend, and external dependencies.
  4. Often performed by a dedicated testing team or using automated testing tools.
 
- ## Test Pyramid typically consists of three levels:
+## Test Pyramid typically consists of three levels:
 
 # Unit Tests (Bottom of the Pyramid):
 
@@ -277,3 +277,28 @@ test('absolute - should return 0 number if input is 0', ()=>{
 });    
 
 ```
+# Grouping test:
+```
+ describe('absolute',()=>{
+
+it('should return a positive number if input is positive', ()=>{
+    const result = lib.absolute(1);
+    expect(result).toBe(1);
+    
+    });
+    
+    it('should return a positive number if input is negative', ()=>{
+        const result = lib.absolute(-1);
+        expect(result).toBe(1);
+        
+    });
+    
+    it('should return 0 number if input is 0', ()=>{
+            const result = lib.absolute(0);
+            expect(result).toBe(0);
+            
+    });    
+    
+ })
+ ```
+#
