@@ -12,14 +12,14 @@
 // };
 
 // Testing arrays
-module.exports.getCurrencies = function() {
-  return ["USD", "AUD", "EUR"];
-};
-
-// // Testing objects
-// module.exports.getProduct = function(productId) {
-//   return { id: productId, price: 10, name: "Soap" };
+// module.exports.getCurrencies = function() {
+//   return ["USD", "AUD", "EUR"];
 // };
+
+// Testing objects
+module.exports.getProduct = function(productId) {
+  return { id: productId, price: 10, name: "Soap", category:'a' };
+};
 
 // // Testing exceptions
 // module.exports.registerUser = function(username) {

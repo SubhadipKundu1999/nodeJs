@@ -360,3 +360,37 @@ it('should return a positive number if input is positive', ()=>{
 
    })
 ```
+
+
+# testing objects:
+
+
+```module.exports.getProduct = function(productId) {
+  return { id: productId, price: 10, name: "Soap", category:'a' };
+};
+```
+
+
+```describe('getProduct',()=>{
+    it('should return the product with the given id',()=>{
+
+      <!-- method 1 (wrong ) -->
+        const result = lib.getProduct(1);
+        expect(result).toBe({id:1, price:10, name: "Soap"});
+       <!-- this case get failed because "toBe"  method only compare object but actually objects are compared by their refference in memory
+       Note:  Compared values have no visual difference. Note that you are testing for equality with the stricter `toBe` matcher using `Object.is`. For deep equality only, use `toEqual` instead.     -->
+       
+
+      <!-- method 2(to specific) -->
+        expect(result).toEqual({id:1, price:10, name: "Soap"}); 
+         <!-- but above method is too specific because test will be pass if all the property and their exact vallue is matched. if actual object have some more property like {category:'a'} the above test will be fail -->
+
+
+    <!-- method 3(  proper way  ) -->
+     expect(result).toMatchObject({id:1, price:10})  ; <!--match this property is matched or not. --> 
+    // or
+    expect(result).toHaveProperty('id',1)    <!-- match if result is having property 'id' with (value with data type) exactly '1' -->
+
+    })
+})
+```
