@@ -1,17 +1,17 @@
-#### Authentication and Authorization
+# Authentication and Authorization
 
-# Authentication :
+## Authentication :
   is the process of determining if the user is who he/she claims to 
 be. It involves validating their email/password.
-# Authorization :
+## Authorization :
   is the process of determining if the user has permission to perform 
 a given operation.
 - To hash passwords, use bcrypt:
-# Hashing passwords
+## Hashing passwords
 ```const salt = await bcrypt.genSalt(10);
 const hashed = await bcrypt.hash(‘1234’, salt);
 ```
- # Validating passwords
+ ## Validating passwords
 ```const isValid = await bcrypt.compare(‘1234’, hashed);
 ```
 
@@ -24,10 +24,11 @@ client. We store this token on the client and send it to the server every time w
 need to call an API endpoint that is only accessible to authenticated users.
 - To generate JSON Web Tokens in an Express app use jsonwebtoken package. 
 
-# Generating a JWT 
+## Generating a JWT 
 
 ```const jwt = require(‘jsonwebtoken’);
-const token = jwt.sign({ _id: user._id}, ‘privateKey’);```
+const token = jwt.sign({ _id: user._id}, ‘privateKey’);
+```
 - Never store private keys and other secrets in your codebase. Store them in 
 environment variables. Use the config package to read application settings 
 stored in environment variables. 
@@ -51,7 +52,7 @@ database.
 
 
 
-#### Error Handling
+# Error Handling
 
 ## use try and catch block
  
@@ -109,7 +110,7 @@ better to use try and catch block
 
 
 
-#### Automated Testing :
+# Automated Testing :
 
 
 ## Defination :
@@ -131,7 +132,7 @@ better to use try and catch block
 2. Integration Test
 3. End-to-End Test
 
-# Unit Testing:
+## Unit Testing:
 - Defination:
 
    unit testing is a process of testing individual units or components of our application in isolation. 
@@ -150,7 +151,7 @@ better to use try and catch block
 Do not give a lots of confidance
 
 
-# Integration Test
+## Integration Test
 
 - Defintion: 
  Integration testing is the process of testing the combination or interaction of different units 
@@ -164,7 +165,7 @@ Do not give a lots of confidance
    or incorrect assumptions about how different units should collaborate.
 4. Can be performed by developers or a dedicated testing team.
 
-# End-to-End Testing:
+## End-to-End Testing:
 
 - Definition:
 
@@ -179,7 +180,7 @@ Do not give a lots of confidance
 
 ## Test Pyramid typically consists of three levels:
 
-# Unit Tests (Bottom of the Pyramid):
+### Unit Tests (Bottom of the Pyramid):
 
 - Description: Unit tests form the base of the pyramid and are the largest in number.
 - Scope: Tests individual units or components in isolation.
@@ -187,7 +188,7 @@ Do not give a lots of confidance
 - Characteristics: Fast to execute, isolated, and focused on specific functions or methods.
 - Responsible Parties: Mostly written and maintained by developers.
 
-# Integration Tests (Middle of the Pyramid):
+### Integration Tests (Middle of the Pyramid):
 
 - Description: Integration tests sit in the middle of the pyramid.
 - Scope: Tests the interaction between different units or components.
@@ -195,7 +196,7 @@ Do not give a lots of confidance
 - Characteristics: May be slower than unit tests due to broader scope, may involve external dependencies.
 - Responsible Parties: Developers and/or dedicated testing teams.
 
-# End-to-End Tests (Top of the Pyramid):
+### End-to-End Tests (Top of the Pyramid):
 
 - Description: End-to-end tests are at the top of the pyramid and are the smallest in number.
 - Scope: Tests the entire application flow from start to finish, simulating real user scenarios.
@@ -215,17 +216,17 @@ Do not give a lots of confidance
        -----------------
        ```
 
-   # takeways:
+   #### takeways:
    - Favour unit tests to e2e tests.
    - Cover unit test gaps with integration tests
    - Use end to end tests sparingly
 
- ## Tooling:
+## Tooling:
   To text, we need a test framework 
   a test framework givs a  Library and a Text runner   
-  # Library
+  ### Library
    In the context of a test framework, a library refers to a collection of pre-written code or functions that provides a set of reusable functionalities to help with testing. These functions are often designed to simplify common testing tasks, such as making assertions, interacting with the application under test, and managing test data
-# Test Runner:
+   ### Test Runner:
 A test runner is a component of a test framework that is responsible for discovering, organizing, and executing tests. It provides an environment for running tests and generates reports on the test results. The test runner is often invoked from the command line or integrated into a development environment.
 
 ## framewoks:
@@ -234,19 +235,19 @@ A test runner is a component of a test framework that is responsible for discove
   3. Jest 
   
 
-#### jest:
-# install:
+# jest:
+### install:
  npm install --save-dev jest
-# change "test" in dide "script"
+### change "test" in dide "script"
 
   "scripts": {
     "test": "jest"
   }, 
 
-# run test :
+### run test :
  npm test
 
-# write first test case:
+### write first test case:
 
 - lib.js
 ```
@@ -277,7 +278,7 @@ test('absolute - should return 0 number if input is 0', ()=>{
 });    
 
 ```
-# Grouping test:
+## Grouping test:
 ```
  describe('absolute',()=>{
 
@@ -301,7 +302,7 @@ it('should return a positive number if input is positive', ()=>{
     
  })
  ```
-# testing string
+## testing string
 
 ```  
 .exports.greet = function(name) {
@@ -317,7 +318,7 @@ it('should return a positive number if input is positive', ()=>{
  }
  )
  ```
- # testing array
+ ## testing array
 
  ```
  module.exports.getCurrencies = function() {
@@ -362,7 +363,7 @@ it('should return a positive number if input is positive', ()=>{
 ```
 
 
-# testing objects:
+## testing objects:
 
 
 ```module.exports.getProduct = function(productId) {
@@ -392,5 +393,35 @@ it('should return a positive number if input is positive', ()=>{
     expect(result).toHaveProperty('id',1)    <!-- match if result is having property 'id' with (value with data type) exactly '1' -->
 
     })
+})
+```
+
+
+## testing excptions
+
+```module.exports.registerUser = function(username) {
+  if (!username) throw new Error("Username is required.");
+
+  return { id: new Date().getTime(), username: username };
+};
+```
+
+```describe('registerUser',()=>{
+    it('should throw if username is falsy',()=>{
+
+        <!-- falsy value: Null, undefined, NaN, '', 0, false; -->
+        expect(()=>{lib.registerUser(null)}).toThrow();
+
+         <!-- testing for all falsy value usingloop: -->
+        const args =[null, undefined, NaN, '', 0, false];
+        args.forEach(a=>{
+            expect(()=>{lib.registerUser(a)}).toThrow();
+        })
+        });
+
+    it('should return a user object if valid userName is passed',()=>{
+        const result =lib.registerUser('Mosh');
+        expect(result).toMatchObject({username:'Mosh'});
+    })    
 })
 ```

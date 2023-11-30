@@ -73,9 +73,9 @@ const lib = require("../lib");
 */
 //testing object
 
-describe('getProduct',()=>{
-    it('should return the product with the given id',()=>{
-        const result = lib.getProduct(1);
+// describe('getProduct',()=>{
+//     it('should return the product with the given id',()=>{
+//         const result = lib.getProduct(1);
         // expect(result).toBe({id:1, price:10, name: "Soap"});
        // this case get failed because "toBe"  method only compare object but actually objects are compared by their refference in memory
       // Note:  Compared values have no visual difference. Note that you are testing for equality with the stricter `toBe` matcher using `Object.is`. For deep equality only, use `toEqual` instead.    
@@ -86,11 +86,32 @@ describe('getProduct',()=>{
 
 
     //  proper way
-    expect(result).toMatchObject({id:1, price:10})  ; // match this property is matched or not.
-    // or
-    expect(result).toHaveProperty('id',1)    // match if result is having property 'id' with (value with data type) exactly '1' 
-    })
+//     expect(result).toMatchObject({id:1, price:10})  ; // match this property is matched or not.
+//     // or
+//     expect(result).toHaveProperty('id',1)    // match if result is having property 'id' with (value with data type) exactly '1' 
+//     })
+// })
+
+
+
+//Testing object
+
+describe('registerUser',()=>{
+    it('should throw if username is falsy',()=>{
+
+        // falsy value: Null, undefined, NaN, '', ), false;
+        // expect(()=>{lib.registerUser(null)}).toThrow();
+
+        // testing for all falsy value usingloop:
+        const args =[null, undefined, NaN, '', 0, false];
+        args.forEach(a=>{
+            expect(()=>{lib.registerUser(a)}).toThrow();
+        })
+        });
+
+    it('should return a user object if valid userName is passed',()=>{
+        const result =lib.registerUser('Mosh');
+        expect(result).toMatchObject({username:'Mosh'});
+    })    
 })
-
-
 
